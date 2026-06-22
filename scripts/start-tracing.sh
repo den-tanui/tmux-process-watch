@@ -27,9 +27,9 @@ echo "$FG_PID" >"$TRACING_DIR/${PANE_ID}.pid"
 echo "$CURRENT_CMD" >"$TRACING_DIR/${PANE_ID}.cmd"
 
 if [[ "$FG_PID" == "$PANE_PID" ]]; then
-	tmux display-message "Tracing shell (no foreground process)"
+	tmux display-message "Started tracing shell (PID: $PANE_PID)"
 else
-	tmux display-message "Tracing PID $FG_PID: $CURRENT_CMD"
+	tmux display-message "Started tracing: $CURRENT_CMD (PID: $FG_PID)"
 fi
 
 # Start monitoring in background

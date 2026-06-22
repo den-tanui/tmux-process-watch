@@ -26,7 +26,7 @@ if [[ -f "$START_FILE" ]]; then
 	CURRENT_CMD=$(cat "$TRACING_DIR/${PANE_ID}.cmd" 2>/dev/null || echo "unknown")
 
 	# Always show tmux message first (most reliable)
-	tmux display-message "Process completed: $CURRENT_CMD (${DURATION}s)"
+	tmux display-message "✓ Completed: $CURRENT_CMD (${DURATION}s)"
 
 	# Try notify-send with proper DBUS session
 	NOTIFY_CMD="$(tmux show-options -gqv @process-watch-notify 2>/dev/null || echo "notify-send")"
