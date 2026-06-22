@@ -85,6 +85,19 @@ Uses `/proc` filesystem for reliable process tracking - no brittle output parsin
 - tmux 2.9+
 - notify-send (or custom notification command)
 
+## Troubleshooting
+
+### Notifications not showing?
+
+1. **Check debug log**: Look in `.tracing/debug.log` for errors
+2. **DBUS issues**: If using Wayland, ensure `DBUS_SESSION_BUS_ADDRESS` is set
+3. **Fallback**: tmux display-message always shows completion
+
+### Process not detected?
+
+- Make sure you press `prefix + p` while the command is actually running
+- Some commands run in subshells - trace the parent process instead
+
 ## License
 
 MIT

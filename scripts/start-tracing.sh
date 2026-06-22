@@ -8,7 +8,7 @@ PANE_ID="${1:-#{pane_id}}"
 PANE_PID=$(tmux display-message -p -t "$PANE_ID" -F "#{pane_pid}")
 
 # Get the current foreground process group
-FG_PID=$(ps -o pgid= -p "$PANE_PID" | tr -d ' ')
+FG_PID=$(ps -o pgid= -p "$PANE_PID" 2>/dev/null | tr -d ' ' || echo "$PANE_PID")
 
 # Get the actual running command (not shell)
 CURRENT_CMD=""
@@ -26,7 +26,11 @@ echo "$EPOCHSECONDS" >"$TRACING_DIR/${PANE_ID}.start"
 echo "$FG_PID" >"$TRACING_DIR/${PANE_ID}.pid"
 echo "$CURRENT_CMD" >"$TRACING_DIR/${PANE_ID}.cmd"
 
-tmux display-message "Tracing PID $FG_PID: $CURRENT_CMD"
+if [[ "$FG_PID" == "$PANE_PID" ]]; then
+	tmux display-message "Tracing shell (no foreground process)"
+else
+	tmux display-message "Tracing PID $FG_PID: $CURRENT_CMD"
+fi
 
 # Start monitoring in background
 tmux start-server \; run-shell -b "$CURRENT_DIR/monitor-process.sh $PANE_ID $FG_PID"

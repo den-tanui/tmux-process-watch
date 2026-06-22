@@ -1,0 +1,1 @@
+initrd=\intel-ucode.img initrd=\initramfs-linux-zen.img intel_pstate=active rd.luks.name=b41c32d2-ca2f-4199-bd0d-9089ff7135f1=cryptlvm root=/dev/mapper/cryptlvm rootflags=subvol=@ rw quiet splash zswap.enabled=1 zswap.compressor=zstd
